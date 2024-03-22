@@ -2,10 +2,11 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 
 class Note {
-  const Note(this.id, this.title);
+  const Note(this.id, this.title, this.content);
 
   final int id;
   final String title;
+  final String content;
 
 }
 

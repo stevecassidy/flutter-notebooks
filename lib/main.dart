@@ -5,54 +5,44 @@ import 'package:provider/provider.dart';
 
 import 'notebooks/notebook_model.dart';
 
+const LOREM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at enim bibendum, elementum nisl vitae, aliquam ipsum. Aenean ut est ante. Phasellus sagittis nunc ut malesuada volutpat. In quis fringilla nisi. Nam porttitor gravida mauris et vehicula. Ut nec condimentum risus. In hac habitasse platea dictumst. Fusce sit amet massa a nunc euismod varius. Donec euismod ex in consectetur egestas. Suspendisse in odio iaculis, laoreet libero vel, gravida urna. Phasellus sollicitudin ipsum et felis ullamcorper, in venenatis diam mattis. Nullam ut velit dolor. Nunc varius commodo vehicula.";
+
 void main() {
-
-
-
-  final nbmodel = NotebookModel();
-  nbmodel.add(const Note(1, 'Time and Tide'));
-  nbmodel.add(const Note(2, 'Upside down'));
-  nbmodel.add(const Note(3, 'In and Out'));
-  nbmodel.add(const Note(4, 'World turns'));
-  nbmodel.add(const Note(5, 'Ride Sally Ride'));
-
-
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => nbmodel,
-      child: MyApp(),
-    ),
-  );
+  runApp(NotebooksApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class NotebooksApp extends StatelessWidget {
+  const NotebooksApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    final nbmodel = NotebookModel();
+    // add some sample data
+    nbmodel.add(const Note(1, 'Time and Tide', LOREM));
+    nbmodel.add(const Note(2, 'World turns', LOREM));
+    nbmodel.add(const Note(3, 'Upside down', LOREM));
+    nbmodel.add(const Note(4, 'In and Out', LOREM));
+    nbmodel.add(const Note(5, 'Ride Sally Ride', LOREM));
+
     return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
+      create: (context) => nbmodel,
       child: MaterialApp(
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         ),
-        home: MyHomePage(),
+        home: HomePage(),
       ),
     );
   }
 }
 
-class MyAppState extends ChangeNotifier {
-  var current = "Hello World";
-}
 
-class MyHomePage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
     return Scaffold(
       body: Column(
         children: [
